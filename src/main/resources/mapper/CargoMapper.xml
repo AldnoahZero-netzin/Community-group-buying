@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xupt.mapper.CargoMapper">
+    <insert id="insertCargo">
+INSERT INTO
+        cargo(name, detail, type, price, weight, stock, sales, status, imageUrl, insertTime)
+        VALUES(#{cargo.name}, #{cargo.detail}, #{cargo.type}, #{cargo.price}, #{cargo.weight}, #{cargo.stock}, #{cargo.sales}, #{cargo.status}, #{cargo.imageUrl}, #{insertTime})
+    </insert>
+    <insert id="addAddress">
+INSERT INTO
+        address(addressName)
+        VALUES(#{addressName})
+    </insert>
+    <insert id="insertOrder">
+INSERT INTO
+        orders(openId, orderId, name, phone, cargoIds, cargoNumbs, numbs, totalPrice, status, address, insertTime)
+        VALUES(#{order.openId}, #{order.orderId}, #{order.name}, #{order.phone}, #{order.cargoIds}, #{order.cargoNumbs}, #{order.numbs}, #{order.totalPrice}, #{order.status}, #{order.address}, #{insertTime})
+    </insert>
+    <insert id="addCart">
+INSERT INTO
+        cart(openId, cargoIds, cargoNumbs)
+        VALUES(#{cart.openId}, #{cart.cargoIds}, #{cart.cargoNumbs})
+    </insert>
+    <update id="updateCargo">
+UPDATE cargo
+        SET
+        id = #{cargo.id}
+        <if test="cargo.name != null and cargo.name != ''">
+            ,name = #{cargo.name}
+        </if>
+        <if test="cargo.detail != null and cargo.detail != ''">
+            ,detail = #{cargo.detail}
+        </if>
+        <if test="cargo.type != null and cargo.type != ''">
+            ,type = #{cargo.type}
+        </if>
+        <if test="cargo.price != null">
+            ,price = #{cargo.price}
+        </if>
+        <if test="cargo.weight != null">
+            ,weight = #{cargo.weight}
+        </if>
+        <if test="cargo.stock != null">
+            ,stock = #{cargo.stock}
+        </if>
+        <if test="cargo.imageUrl != null and cargo.imageUrl != ''">
+            ,imageUrl = #{cargo.imageUrl}
+        </if>
+        <if test="cargo.status != null and cargo.status != ''">
+            ,status = #{cargo.status}
+        </if>
+        <if test="cargo.sales != null and cargo.sales != ''">
+            ,sales = #{cargo.sales}
+        </if>
+        WHERE id = #{cargo.id}
+    </update>
+    <update id="changeOrderStatus">
+UPDATE orders
+        SET
+        status = #{status}
+        WHERE id = #{id}
+    </update>
+    <update id="updateCart">
+UPDATE cart
+        SET
+        cargoIds = #{cart.cargoIds}
+        ,cargoNumbs = #{cart.cargoNumbs}
+        WHERE id = #{cart.id}
+    </update>
+    <delete id="deleteCart">
+DELETE
+        FROM
+        cart
+        WHERE openId = #{openId}
+    </delete>
+    <select id="queryAllCargo" resultType="com.xupt.beans.Cargo">
+SELECT *
+        FROM
+        cargo
+        WHERE 1 = 1
+        <if test="name != null and name != ''">
+            AND name LIKE CONCAT('%',#{name},'%')
+        </if>
+        <if test="type != null and type != ''">
+            AND type = #{type}
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{status}
+        </if>
+        ORDER BY insertTime DESC
+    </select>
+    <select id="queryType" resultType="com.xupt.beans.Type">
+SELECT *
+        FROM
+        type
+    </select>
+    <select id="queryAddress" resultType="java.lang.String">
+SELECT addressName
+        FROM
+        address
+    </select>
+    <select id="queryCargoById" resultType="com.xupt.beans.Cargo">
+SELECT *
+        FROM
+        cargo
+        WHERE id = #{cargoId}
+    </select>
+    <select id="queryAllOrder" resultType="com.xupt.beans.Order">
+SELECT *
+        FROM
+        orders
+        WHERE 1 = 1
+        <if test="openId != null and openId != ''">
+            AND openId = #{openId}
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{status}
+        </if>
+        ORDER BY insertTime DESC
+    </select>
+    <select id="queryOrderById" resultType="com.xupt.beans.Order">
+SELECT *
+        FROM
+        orders
+        WHERE id = #{id}
+    </select>
+    <select id="queryCartByOpenId" resultType="com.xupt.beans.Cart">
+SELECT *
+        FROM
+        cart
+        WHERE openId = #{openId}
+    </select>
+</mapper>
