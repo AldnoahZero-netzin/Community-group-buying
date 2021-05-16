@@ -1,14 +1,14 @@
-#·şÎñÉèÖÃ
+#æœåŠ¡é…ç½®
 server:
   port: 82
   servlet:
     context-path: /shop
-#Êı¾İÔ´
+#æ•°æ®æºé…ç½®
 spring:
   datasource:
     username: root
-    password: Yhn980313@
-    url: jdbc:mysql://39.96.82.21:3306/shop?useUnicode=true&characterEncoding=utf8
+    password: yourpassword
+    url: jdbc:mysql://yourip:3306/shop?useUnicode=true&characterEncoding=utf8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: org.apache.tomcat.jdbc.pool.DataSource
   servlet:
