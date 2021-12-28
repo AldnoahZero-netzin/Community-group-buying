@@ -1,5 +1,5 @@
 # Community-group-buying
-Spring Boot + mybatis + MySQL社区团购小程序后台+管理端
+APP+管理端后台：Spring Boot + mybatis + MySQL社区团购小程序
 
-APP端+管理端 Vue
+APP+管理端前端 Vue
 链接：https://github.com/Spicy0strip/lemon-app
